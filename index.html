@@ -65,11 +65,50 @@
       background-color: rgba(255,230,90,1);
       cursor:pointer;
     }
+    .modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
 </style>
 </head>
 <body>
     <div id="forPuzzle"></div>
-
+<div id="completionModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>Congratulations! You have completed the puzzle!</p>
+  </div>
+</div>
     <script>
         "use strict";
 
@@ -1550,7 +1589,38 @@ function lookForLoops (tbCases) {
   } // while tbEdges...
   return tbLoops;
 } // function lookForLoops
+function showModal() {
+  var modal = document.getElementById("completionModal");
+  var span = document.getElementsByClassName("close")[0];
 
+  modal.style.display = "block";
+ 
+window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }       
+function checkPuzzleCompletion() {
+  for (let ky = 0; ky < this.ny; ky++) {
+    for (let kx = 0; kx < this.nx; kx++) {
+      let piece = this.pieces[ky][kx];
+      let correctPosition = new Point(kx * this.dx, ky * this.dy);
+      let currentPosition = piece.where();
+
+      if (Math.abs(currentPosition.x - correctPosition.x) > this.dCoupling || 
+          Math.abs(currentPosition.y - correctPosition.y) > this.dCoupling) {
+        return false; // Piece is not in the correct position
+      }
+    }
+  }
+  // If all pieces are in the correct positions
+  showModal();
+  return true;
+}
+
+        
+        
+        
 //---------------------------------------------------------------------------- -
 
 window.addEventListener("load", function(){
