@@ -7,10 +7,11 @@
       display: none; 
       position: fixed; 
       z-index: 1000000; 
-      left: 0; 
-      top: 0; 
-      width: 100%; 
-      height: 100%; 
+      left: auto; 
+      right:0;
+      top: 50%; 
+      width: 100%;
+      transform: translateY(-50%);
       overflow: visible; 
       background-color: rgba(0,0,0,0.4);
       }
@@ -20,16 +21,14 @@
       padding: 20px; 
       border: 1px solid #888;
       width: 50%;
-      color: #333; // Example text color
-      display: flex; // Enable flexbox
-      flex-direction: column; // Stack children vertically
-      justify-content: center; // Center content vertically
-      align-items: center; // Center content horizontally (for block elements inside)
+      color: #333; 
+      display: flex; 
+      align-items: center; 
       .modal-content h2 {
-      text-align: center; // Center text horizontally
-      font-family: Arial, sans-serif; // Example font-family
-      font-size: 24px; // Example font-size
-      font-weight: bold; // Example font weight for h2
+      text-align: center;
+      font-family: Arial, sans-serif;
+      font-size: 24px; 
+      font-weight: bold;
       }
       .modal-content p {
       text-align: center; // Center text horizontally
@@ -105,12 +104,21 @@
     #divmenu.open .line:hover {
       background-color: rgba(255,230,90,1);
       cursor:pointer;
+    #logo {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    height: 50px; // adjust as needed
+    z-index: 1000;
+}
+
     }
 </style>
 </head>
 <body>
-    <div id="forPuzzle"></div>
-
+    <div id="forPuzzle">
+    <img id="logo" src="https://www.citadele.lt/themes/citadele_lv/assets/images/icons/desktop-logo.svg" alt="Citadele Logo">    
+    </div>
     <script>
         "use strict";
 
@@ -705,6 +713,9 @@ function Puzzle(params) {
 // image - by url (src) or straight image object
   if (typeof(params.img) == 'string') {
     this.image = new Image();
+    this.npieces = 9; // default number of pieces
+    this.createPuzzle(params);
+    this.next();
     this.image.src = params.img;
     this.image.addEventListener("load", (function(obj){
       return function() {
