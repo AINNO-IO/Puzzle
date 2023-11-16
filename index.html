@@ -797,23 +797,8 @@ on number of pieces
                             0, 0, wi, he,
                             Puzzle.MARGIN1, Puzzle.MARGIN1, this.width, this.height);
 
-
-  if (!this.menu) {
-    this.menu = new Menu({
-      parentDiv: this.divGame,
-      idDivMenu: "divmenu",
-      title: "MENU",
-      lineOffset: 30,
-      lineStep: 30,
-      lines: [
-        {text: "Load image", func: this.loadImage()},
-        {text: "Start 9", func: this.returnFunct(9)},
-        {text: "Start 25", func: this.returnFunct(25)},
-      ]
-    });
-  }
   if (autoStart) {
-     this.npieces = 25;
+     this.npieces = 9;
      this.next();
   }
 } // createPuzzle
