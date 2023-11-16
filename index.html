@@ -1,37 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
-<script>
-    let modalStyle = `
-      .modal { 
-      display: none; 
-      position: fixed; 
-      z-index: 1000000; 
-      left: auto; 
-      right:0;
-      top: 50%; 
-      width: 100%;
-      transform: translateY(-50%);
-      overflow: visible; 
-      background-color: rgba(0,0,0,0.4);
-      }
-      .modal-content { 
-      background-color: #FFD0C8;
-      margin: 15% auto;
-      padding: 20px; 
-      border: 1px solid #888;
-      width: 50%;
-      color: #333; 
-      display: flex; 
-      align-items: center; 
-      font-family: 'Roboto', sans-serif;
-      font-size: 16px; // adjust as needed
-    `;
-    let styleSheet = document.createElement("style");
-    styleSheet.type = "text/css";
-    styleSheet.innerText = modalStyle;
-    document.head.appendChild(styleSheet);
-  </script>
 <meta charset="UTF-8">
 <title>Jigsaw puzzle 2023</title>
 <style id="cm-font-family" class="cm-font-family" nonce="+JIADJ6Cz2o=">
@@ -95,21 +64,12 @@
     #divmenu.open .line:hover {
       background-color: rgba(255,230,90,1);
       cursor:pointer;
-    #logo {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    height: 50px; // adjust as needed
-    z-index: 1000;
-}
-
     }
 </style>
 </head>
 <body>
-    <div id="forPuzzle">
-    <img id="logo" src="https://www.citadele.lt/themes/citadele_lv/assets/images/icons/desktop-logo.svg" alt="Citadele Logo">    
-    </div>
+    <div id="forPuzzle"></div>
+
     <script>
         "use strict";
 
@@ -704,9 +664,14 @@ function Puzzle(params) {
 // image - by url (src) or straight image object
   if (typeof(params.img) == 'string') {
     this.image = new Image();
-    this.npieces = 9; // default number of pieces
+    this.image.src = params.img;
+    this.image.addEventListener("load", (function(obj){
+      return function() {
+        obj.createPuzzle(params);
+      }})(this));
+  } else {
+    this.image = params.img;
     this.createPuzzle(params);
-    this.next();
   }
 
 } // Puzzle
@@ -797,8 +762,26 @@ on number of pieces
                             0, 0, wi, he,
                             Puzzle.MARGIN1, Puzzle.MARGIN1, this.width, this.height);
 
+
+  if (!this.menu) {
+    this.menu = new Menu({
+      parentDiv: this.divGame,
+      idDivMenu: "divmenu",
+      title: "MENU",
+      lineOffset: 30,
+      lineStep: 30,
+      lines: [
+        {text: "load image", func: this.loadImage()},
+        {text: "12 piece", func: this.returnFunct(12)},
+        {text: "25 piece", func: this.returnFunct(25)},
+        {text: "50 piece", func: this.returnFunct(50)},
+        {text: "100 piece", func: this.returnFunct(100)},
+        {text: "200 piece", func: this.returnFunct(200)}
+      ]
+    });
+  }
   if (autoStart) {
-     this.npieces = 9;
+     this.npieces = 25;
      this.next();
   }
 } // createPuzzle
@@ -1250,19 +1233,6 @@ Puzzle.prototype.mouseUpGame = function(event) {
 
 // won ?
   if (this.polyPieces.length > 1) return; // no, continue
-// Create modal HTML
-let modalHtml = `
-  <div id="puzzleModal" class="modal">
-    <div class="modal-content">
-      <h2>Hi, my name is Tomas!</h2>
-      <p>I'm the best leasing manager</p>
-      <p>I like LIDL girls</p>
-      <p>You can find me in da Bardakas!</p>
-      <!-- Add more text points as needed -->
-    </div>
-  </div>
-`;
-document.body.insertAdjacentHTML('beforeend', modalHtml);
 
 // YES ! tell the player
   this.removeAllListeners();
@@ -1299,16 +1269,7 @@ document.body.insertAdjacentHTML('beforeend', modalHtml);
     if (this.anim.cpt > 100) this.anim.cpt = 100;
     this.anim.cpt = Math.floor(this.anim.cpt);
   this.anim.tmr = window.setInterval((function(puzz){return function(){puzz.animateEnd()}})(this), 20);
-// Display modal after final animation setup
-let modal = document.getElementById("puzzleModal");
-modal.style.display = "block";
-    // Close modal when clicking outside of it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
-    
+
 } // Puzzle.prototype.mouseUpGame
 // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -   -
 
@@ -1598,7 +1559,7 @@ function lookForLoops (tbCases) {
 
 window.addEventListener("load", function(){
 
-let img = 'https://www.citadele.lt/storage/app/uploads/public/651/aa8/c6e/651aa8c6e2a2c082093053.jpg';
+let img = 'https://assets.codepen.io/2574552/Mona_Lisa.jpg';
 
 autoStart = isMiniature(); // used for nice miniature in CodePen
 
