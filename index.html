@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
+    // Add modal styles
+let modalStyle = `
+  .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.4); }
+  .modal-content { background-color: #fefefe; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 80%; }
+`;
+let styleSheet = document.createElement("style");
+styleSheet.type = "text/css";
+styleSheet.innerText = modalStyle;
+document.head.appendChild(styleSheet);
+
 <meta charset="UTF-8">
 <title>Jigsaw puzzle 2023</title>
 <style id="cm-font-family" class="cm-font-family" nonce="+JIADJ6Cz2o=">
@@ -1230,6 +1240,19 @@ Puzzle.prototype.mouseUpGame = function(event) {
 
 // won ?
   if (this.polyPieces.length > 1) return; // no, continue
+// Create modal HTML
+let modalHtml = `
+  <div id="puzzleModal" class="modal">
+    <div class="modal-content">
+      <h2>Hi, my name is Greta!</h2>
+      <p>Some text point 1</p>
+      <p>Some text point 2</p>
+      <p>Some text point 3</p>
+      <!-- Add more text points as needed -->
+    </div>
+  </div>
+`;
+document.body.insertAdjacentHTML('beforeend', modalHtml);
 
 // YES ! tell the player
   this.removeAllListeners();
@@ -1266,7 +1289,16 @@ Puzzle.prototype.mouseUpGame = function(event) {
     if (this.anim.cpt > 100) this.anim.cpt = 100;
     this.anim.cpt = Math.floor(this.anim.cpt);
   this.anim.tmr = window.setInterval((function(puzz){return function(){puzz.animateEnd()}})(this), 20);
-
+// Display modal after final animation setup
+let modal = document.getElementById("puzzleModal");
+modal.style.display = "block";
+    // Close modal when clicking outside of it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+    
 } // Puzzle.prototype.mouseUpGame
 // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -   -
 
