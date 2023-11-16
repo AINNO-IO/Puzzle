@@ -707,14 +707,6 @@ function Puzzle(params) {
     this.npieces = 9; // default number of pieces
     this.createPuzzle(params);
     this.next();
-    this.image.src = params.img;
-    this.image.addEventListener("load", (function(obj){
-      return function() {
-        obj.createPuzzle(params);
-      }})(this));
-  } else {
-    this.image = params.img;
-    this.createPuzzle(params);
   }
 
 } // Puzzle
