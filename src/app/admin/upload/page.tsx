@@ -1,5 +1,7 @@
 import Image from "next/image";
 import type { Metadata } from "next";
+import Footer from "@/app/footer";
+import Navbar from "@/app/navbar";
 
 export const metadata: Metadata = {
   title: "Upload new picture",
@@ -8,8 +10,8 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main>
-      <div className="hero min-h- ">
+    <main className="mt-20">
+      <div className="hero m-auto">
 
         <div className="hero-content flex-col lg:flex-row-reverse">
           <div className="text-center lg:text-left">
@@ -31,30 +33,32 @@ export default function Home() {
 
           <div className="card shrink-0 w-full max-w-xl shadow-2xl">
             <form className="card-body">
+
+              <div className="form-control">
+                <input type="file" className="file-input file-input-bordered file-input-primary w-full max-w-xs" />
+              </div>
+
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Email</span>
+                  <span className="label-text">Title</span>
                 </label>
                 <input
-                  type="email"
-                  placeholder="email"
+                  type="text"
                   className="input input-bordered"
                   required
                 />
               </div>
+
+
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Password</span>
+                  <span className="label-text">Text Points</span>
                 </label>
-                <input
-                  type="password"
-                  placeholder="password"
-                  className="input input-bordered"
-                  required
-                />
+                <textarea className="textarea textarea-bordered textarea-lg" placeholder=""></textarea>
               </div>
+
               <div className="form-control mt-6">
-                <button className="btn btn-primary">Login</button>
+                <button className="btn btn-primary">Generate puzzle link</button>
               </div>
             </form>
           </div>

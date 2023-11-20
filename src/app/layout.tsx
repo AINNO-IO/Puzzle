@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Footer from "./footer";
 import "./globals.css";
+import Navbar from "./navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,13 +17,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}
-      <footer className="footer footer-center p-4 bg-base-200 text-base-content">
-        <aside>
-          <p>Copyright © 2023 - All right reserved by Modakoda</p>
-        </aside>
-      </footer>
+    <html lang="en" className="h-full max-w-7xl m-auto">
+      <body className="h-full">
+        <Navbar />
+        {children}
+        <Footer />
       </body>
     </html>
   );
