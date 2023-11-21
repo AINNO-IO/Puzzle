@@ -6,13 +6,13 @@ import { useEffect, useState } from "react";
 
 export default function PuzzleComponent({ imgUrl, title, text }) {
 
-  const [won, setWon] = useState(true)
+  const [won, setWon] = useState(false)
 
   let puzzle
 
   useEffect(() => {
     let autoStart = true
-    const autoStartPieces = 4
+    const autoStartPieces = 9
     const mrandom = Math.random,
       mfloor = Math.floor,
       mhypot = Math.hypot;
@@ -922,7 +922,7 @@ export default function PuzzleComponent({ imgUrl, title, text }) {
           } // switch
         } // for kn
       } // for kp
-      window.setTimeout((function (obj) { return function () { obj.launchAnimation() } })(this), 1000);
+      window.setTimeout((function (obj) { return function () { obj.launchAnimation() } })(this), 20);
 
     } // Puzzle.prototype.associateImage
 
@@ -945,8 +945,8 @@ export default function PuzzleComponent({ imgUrl, title, text }) {
 
     Puzzle.prototype.launchAnimation = function () {
 
-      this.anim = { cpt: autoStart ? 50 : 100 };
-      this.anim.tmr = window.setInterval((function (puzz) { return function () { puzz.animate() } })(this), 20);
+      this.anim = { cpt: autoStart ? 30 : 100 };
+      this.anim.tmr = window.setInterval((function (puzz) { return function () { puzz.animate() } })(this), 0);
 
     } // launchAnimation
     // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -   -
