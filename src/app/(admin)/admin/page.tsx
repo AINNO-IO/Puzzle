@@ -1,10 +1,8 @@
 import Image from 'next/image'
 import type { Metadata } from 'next'
 
-import fs from 'fs';
 import PuzzleData from '@/puzzle/puzzle-data';
-import { error } from 'console';
-import { deletePuzzle, getPuzzleData } from '@/puzzle/puzzle-repository';
+import { getPuzzleData } from '@/puzzle/puzzle-repository';
 import Actions from './actions';
 
 export const metadata: Metadata = {
@@ -38,7 +36,7 @@ export default async function AdminView() {
                   <div className="flex items-center gap-3">
                     <div className="avatar">
                       <div className="mask mask-squircle w-24 h-24">
-                        <img src={item.picture} alt="Avatar Tailwind CSS Component" />
+                        <Image src={item.picture} alt="Avatar Tailwind CSS Component" />
                       </div>
                     </div>
                   </div>

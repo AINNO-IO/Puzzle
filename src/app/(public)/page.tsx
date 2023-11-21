@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation'
 
 export default async function Home() {
   const puzzles: PuzzleData[] = await getPuzzleData()
-  if (puzzles) {
+  if (puzzles && puzzles.length) {
     const i = Math.floor(Math.random() * puzzles.length)
     redirect(`/puzzle/${puzzles[i].id}`)
   } else {

@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  application:
+    build: .
+    restart: always
+    environment:
+      - FILE_STORAGE_PATH=/data
+      - NEXT_PUBLIC_SITE_URL=http://localhost:3000
+    ports:
+      - '3002:3000'      
+    volumes: 
+      - app:/data
+volumes:
+  app:
+    driver: local

@@ -17,7 +17,13 @@ export async function deletePuzzle(id: string): Promise<void> {
 export async function getPuzzleData(): Promise<PuzzleData[]> {
   const storageUrl = `${process.env.FILE_STORAGE_PATH}`
 
-  const fileNamesInDir = await fs.readdirSync(storageUrl)
+  let fileNamesInDir
+  try {
+    fileNamesInDir = fs.readdirSync(storageUrl)
+  } catch (err) {
+    console.error(`Failed to read dir ${storageUrl}`, err)
+    return []
+  }
 
   const result: PuzzleData[] = []
 
