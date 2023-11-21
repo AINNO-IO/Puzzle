@@ -5,7 +5,7 @@ services:
     restart: always
     environment:
       - FILE_STORAGE_PATH=/data
-      - NEXT_PUBLIC_SITE_URL=http://localhost:3000
+      - NEXT_PUBLIC_SITE_URL=http://194.5.157.23:3002
     ports:
       - '3002:3000'      
     volumes: 
