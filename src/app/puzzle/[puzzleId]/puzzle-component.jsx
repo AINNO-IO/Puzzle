@@ -5,9 +5,10 @@ import { useEffect } from "react";
 
 export default function PuzzleComponent({ imgUrl }) {
 
+  let puzzle
   useEffect(() => {
     let autoStart = true
-    const autoStartPieces = 9
+    const autoStartPieces = 4
     const mrandom = Math.random,
       mfloor = Math.floor,
       mhypot = Math.hypot;
@@ -941,7 +942,7 @@ export default function PuzzleComponent({ imgUrl }) {
 
     Puzzle.prototype.launchAnimation = function () {
 
-      this.anim = { cpt: autoStart ? 200 : 100 };
+      this.anim = { cpt: autoStart ? 50 : 100 };
       this.anim.tmr = window.setInterval((function (puzz) { return function () { puzz.animate() } })(this), 20);
 
     } // launchAnimation
@@ -1506,25 +1507,27 @@ export default function PuzzleComponent({ imgUrl }) {
 
     // window.addEventListener("load", function () {
 
-      // autoStart = isMiniature(); // used for nice miniature in CodePen
+    // autoStart = isMiniature(); // used for nice miniature in CodePen
 
-      let x = new Puzzle({
+    if (!puzzle) {
+      puzzle = new Puzzle({
         img: imgUrl,
-        width: window.innerWidth,
-        height: window.innerHeight,
+        width: 1250,
+        height: 800,
         idiv: "forPuzzle",
 
       });
+    }
 
-      // console.log(x)
-      // debugger;
+    // console.log(x)
+    // debugger;
 
-      // x.npieces = 9
-      // x.next()
+    // x.npieces = 9
+    // x.next()
 
-      // x.returnFunct(9)()
+    // x.returnFunct(9)()
 
-      // x.beginGame()
+    // x.beginGame()
     // });
 
   })
