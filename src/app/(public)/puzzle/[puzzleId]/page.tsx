@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import PuzzleComponent from "./puzzle-component";
 import fs from 'fs';
-import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Solve puzzle",
@@ -22,8 +21,8 @@ export default async function Puzzle({ params }: { params: { puzzleId: string } 
   
  console.log(params.puzzleId)
   return (
-    <main className="">
-      <PuzzleComponent imgUrl={picture}/>
+    <main>
+      <PuzzleComponent imgUrl={picture} title={title} text={text}/>
     </main>
   );
 }

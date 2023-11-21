@@ -1,9 +1,12 @@
 'use client'
+import Profile from './profile';
 import './puzzle-component.css'
 
 import { useEffect, useState } from "react";
 
-export default function PuzzleComponent({ imgUrl }) {
+export default function PuzzleComponent({ imgUrl, title, text }) {
+
+  const [won, setWon] = useState(true)
 
   let puzzle
 
@@ -684,7 +687,7 @@ export default function PuzzleComponent({ imgUrl }) {
         this.canvMobile = document.createElement('canvas');
         this.divBoard.appendChild(this.canvMobile);
       }
-      this.canvMobile.style.visibility = 'visible';
+      this.canvMobile.style.visibility = 'hidden';
       this.canvMobile.width = parseFloat(this.divBoard.style.width);
       this.canvMobile.height = parseFloat(this.divBoard.style.height);
       this.canvMobile.style.position = "absolute";
@@ -722,7 +725,6 @@ export default function PuzzleComponent({ imgUrl }) {
     // function for menu actions
 
     Puzzle.prototype.returnFunct = function (nbpieces) {
-      console.log("executed")
       let puz = this;
       return function () {
         // puz.menu.collapse();
@@ -1182,6 +1184,7 @@ export default function PuzzleComponent({ imgUrl }) {
       if (this.polyPieces.length > 1) return; // no, continue
 
       // YES ! tell the player
+      setWon(true)
       this.removeAllListeners();
       // normal image is re-drawn
       let ctx = this.canvMobile.getContext("2d");
@@ -1217,7 +1220,11 @@ export default function PuzzleComponent({ imgUrl }) {
       if (this.anim.cpt < 12) this.anim.cpt = 12;
       if (this.anim.cpt > 100) this.anim.cpt = 100;
       this.anim.cpt = Math.floor(this.anim.cpt);
-      this.anim.tmr = window.setInterval((function (puzz) { return function () { puzz.animateEnd() } })(this), 20);
+      this.anim.tmr = window.setInterval((function (puzz) {
+        return function () {
+          puzz.animateEnd()
+        }
+      })(this), 20);
 
     } // Puzzle.prototype.mouseUpGame
     // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -   -
@@ -1511,11 +1518,10 @@ export default function PuzzleComponent({ imgUrl }) {
     // autoStart = isMiniature(); // used for nice miniature in CodePen
 
     if (!puzzle) {
-      console.log("test")
       puzzle = new Puzzle({
         img: imgUrl,
-        width: 1256,
-        height: 1000,
+        width: window.innerWidth,
+        height: window.innerHeight,
         idiv: "forPuzzle",
       });
     }
@@ -1533,6 +1539,12 @@ export default function PuzzleComponent({ imgUrl }) {
 
   }, [])
 
-  return (<div id="forPuzzle"></div>)
+  if (won) {
+    return (
+      <Profile imgUrl={imgUrl} title={title} text={text} />
+    )
+  } else {
+    return (<div id="forPuzzle"></div>)
+  }
 }
 
