@@ -30,7 +30,7 @@ export default async function AdminView() {
           </thead>
           <tbody>
             {puzzleData.map((item) => (
-              <tr>
+              <tr key={item.id}>
                 <td>
                   {item.id}
                 </td>
