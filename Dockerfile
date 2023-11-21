@@ -4,6 +4,7 @@ RUN apt update && apt install curl iputils-ping telnet -y
 
 FROM base AS build-base 
 COPY . /app
+COPY ./.env.build /app/.env
 WORKDIR /app
 
 FROM build-base AS prod-deps

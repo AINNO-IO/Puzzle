@@ -6,3 +6,4 @@ dist
 .next
 Dockerfile
 Dockerfile.migration
+.env
