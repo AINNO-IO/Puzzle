@@ -33,12 +33,13 @@ export default function FormPage() {
     )
 
 
-    const handleSubmit = async (event: any) => {
-        event.preventDefault()
+    const handleSubmit = (event: any) => {
+        event.preventDefault();
 
-        const result = await SaveData(formData)
+        SaveData(formData).then((result) => {
+            setFormData({ ...formData, id: result })
+        })
 
-        setFormData({ ...formData, id: result })
     };
 
     return (<div className="hero m-auto">
