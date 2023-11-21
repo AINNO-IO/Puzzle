@@ -16,6 +16,7 @@ export default function Navbar() {
       </div>
 
       <div className="w-auto block flex-grow text-right">
+       <Link href="/admin"> <button className="btn btn-secondary px-5">All puzzles</button></Link>
        <Link href="/admin/upload"> <button className="btn btn-secondary mx-5 px-5">New puzzle</button></Link>
         <button className="btn btn-primary px-5">Login</button>
       </div>

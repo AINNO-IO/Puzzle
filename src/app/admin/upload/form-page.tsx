@@ -1,9 +1,9 @@
 'use client'
 import Image from "next/image";
 import { useState } from "react";
-import SaveData, { DataToSave } from "./save-data";
 import Link from "next/link";
-import { read } from "fs";
+import PuzzleData from "@/puzzle/puzzle-data";
+import savePuzzle from "@/puzzle/puzzle-repository";
 
 export default function FormPage() {
     const [formData, setFormData] = useState({
@@ -46,13 +46,10 @@ export default function FormPage() {
             id: formData.id,
             title: formData.title,
             text: formData.text,
-            picture: {
-                name: formData.pictureFile.name,
-                body: await file2Base64(formData.pictureFile)
-            }
-        } as DataToSave
+            picture: await file2Base64(formData.pictureFile)
+        } as PuzzleData
 
-        SaveData(dataToSave).then((uuid) => {
+        savePuzzle(dataToSave).then((uuid) => {
             setFormData({ ...formData, id: uuid })
         })
 

@@ -22,7 +22,7 @@ export default async function Puzzle({ params }: { params: { puzzleId: string } 
   
  console.log(params.puzzleId)
   return (
-    <main className="mt-20">
+    <main className="mt-20 min-h-screen">
       {/* <Image 
         src={picture}
         alt="Puzzle picture"

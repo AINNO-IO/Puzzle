@@ -1,11 +1,12 @@
 'use client'
 import './puzzle-component.css'
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function PuzzleComponent({ imgUrl }) {
 
   let puzzle
+
   useEffect(() => {
     let autoStart = true
     const autoStartPieces = 4
@@ -1510,12 +1511,12 @@ export default function PuzzleComponent({ imgUrl }) {
     // autoStart = isMiniature(); // used for nice miniature in CodePen
 
     if (!puzzle) {
+      console.log("test")
       puzzle = new Puzzle({
         img: imgUrl,
-        width: 1250,
-        height: 800,
+        width: 1256,
+        height: 1000,
         idiv: "forPuzzle",
-
       });
     }
 
@@ -1530,7 +1531,7 @@ export default function PuzzleComponent({ imgUrl }) {
     // x.beginGame()
     // });
 
-  })
+  }, [])
 
   return (<div id="forPuzzle"></div>)
 }

@@ -17,7 +17,7 @@ const config: Config = {
         light: {
           ...require("daisyui/src/theming/themes")["winter"],
           primary: "#E3002C",
-          secondary: "#FFC8D0",
+          secondary: "#FFC8D0"
         },
       },
     ],
