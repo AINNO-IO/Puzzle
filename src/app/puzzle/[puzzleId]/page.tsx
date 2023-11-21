@@ -23,8 +23,6 @@ export default async function Puzzle({ params }: { params: { puzzleId: string } 
  console.log(params.puzzleId)
   return (
     <main className="mt-20">
-      <p>{title}</p>
-      <p>{text}</p>
       {/* <Image 
         src={picture}
         alt="Puzzle picture"
@@ -32,6 +30,7 @@ export default async function Puzzle({ params }: { params: { puzzleId: string } 
         height={600}
       /> */}
       <PuzzleComponent imgUrl={picture}/>
+      {/* <NewPuzzle imageSrc="picture"/> */}
     </main>
   );
 }

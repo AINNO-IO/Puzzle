@@ -1,11 +1,13 @@
 'use client'
+import './puzzle-component.css'
 
 import { useEffect } from "react";
 
 export default function PuzzleComponent({ imgUrl }) {
 
   useEffect(() => {
-    let autoStart
+    let autoStart = true
+    const autoStartPieces = 9
     const mrandom = Math.random,
       mfloor = Math.floor,
       mhypot = Math.hypot;
@@ -66,44 +68,44 @@ export default function PuzzleComponent({ imgUrl }) {
     
     */
 
-    function Menu(params) {
+    // function Menu(params) {
 
-      let parentDiv = params.parentDiv;
-      if (typeof (parentDiv) == 'string') parentDiv = document.getElementById(parentDiv);
-      // div menu
-      let divMenu = document.createElement('div');
-      divMenu.setAttribute("id", params.idDivMenu);
-      // title
-      let dt = document.createElement('div');
-      dt.classList.add('title');
-      dt.appendChild(document.createTextNode(params.title));
-      let that = this;
-      dt.addEventListener("click", () => that.display());
-      divMenu.appendChild(dt);
-      this.list = [];
-      for (let k = 0; k < params.lines.length; ++k) {
-        dt = document.createElement('div');
-        dt.classList.add('line');
-        dt.appendChild(document.createTextNode(params.lines[k].text));
-        dt.style.top = (params.lineOffset + k * params.lineStep) + "px";
-        dt.addEventListener("click", params.lines[k].func);
-        divMenu.appendChild(dt);
-        this.list.push(dt);
-      }
-      divMenu.style.height = (params.lineOffset + params.lines.length * params.lineStep) + 'px'
-      this.divMenu = divMenu;
-      parentDiv.appendChild(divMenu);
+    //   let parentDiv = params.parentDiv;
+    //   if (typeof (parentDiv) == 'string') parentDiv = document.getElementById(parentDiv);
+    //   // div menu
+    //   let divMenu = document.createElement('div');
+    //   divMenu.setAttribute("id", params.idDivMenu);
+    //   // title
+    //   let dt = document.createElement('div');
+    //   dt.classList.add('title');
+    //   dt.appendChild(document.createTextNode(params.title));
+    //   let that = this;
+    //   dt.addEventListener("click", () => that.display());
+    //   divMenu.appendChild(dt);
+    //   this.list = [];
+    //   for (let k = 0; k < params.lines.length; ++k) {
+    //     dt = document.createElement('div');
+    //     dt.classList.add('line');
+    //     dt.appendChild(document.createTextNode(params.lines[k].text));
+    //     dt.style.top = (params.lineOffset + k * params.lineStep) + "px";
+    //     dt.addEventListener("click", params.lines[k].func);
+    //     divMenu.appendChild(dt);
+    //     this.list.push(dt);
+    //   }
+    //   divMenu.style.height = (params.lineOffset + params.lines.length * params.lineStep) + 'px'
+    //   this.divMenu = divMenu;
+    //   parentDiv.appendChild(divMenu);
 
-    } // Menu
+    // } // Menu
 
-    Menu.prototype.collapse = function () {
-      this.divMenu.classList.remove('open');
+    // Menu.prototype.collapse = function () {
+    //   this.divMenu.classList.remove('open');
 
-    }
-    Menu.prototype.display = function () {
-      this.divMenu.classList.add('open');
+    // }
+    // Menu.prototype.display = function () {
+    //   this.divMenu.classList.add('open');
 
-    }
+    // }
 
     //-------------------------------------------------------------------------
 
@@ -150,76 +152,76 @@ export default function PuzzleComponent({ imgUrl }) {
 
     // end Segment
     //-------------------------------------------------------------------------
-    let uploadFile;
-    { // scope for uploadFile
+    // let uploadFile;
+    // { // scope for uploadFile
 
-      let options, callBack;
+    //   let options, callBack;
 
-      let elFile = document.createElement('input');
-      elFile.setAttribute('type', 'file');
-      elFile.style.display = 'none';
-      elFile.addEventListener("change", getFile);
+    //   let elFile = document.createElement('input');
+    //   elFile.setAttribute('type', 'file');
+    //   elFile.style.display = 'none';
+    //   elFile.addEventListener("change", getFile);
 
-      function getFile() {
+    //   function getFile() {
 
-        if (this.files.length == 0) {
-          returnLoadFile({ fail: 'no file' });
-          return;
-        }
-        let file = this.files[0];
-        let reader = new FileReader();
+    //     if (this.files.length == 0) {
+    //       returnLoadFile ({fail: 'no file'});
+    //       return;
+    //     }
+    //     let file = this.files[0];
+    //     let reader = new FileReader();
 
-        reader.addEventListener('load', () => {
-          if (options.image) options.image.src = reader.result;
-          returnLoadFile({ success: reader.result, file: file });
-        });
-        reader.addEventListener('abort', () => {
-          returnLoadFile({ fail: 'abort' });
-        });
-        reader.addEventListener('error', () => {
-          returnLoadFile({ fail: 'error' });
-        });
+    //     reader.addEventListener('load', () => {
+    //       if (options.image) options.image.src = reader.result;
+    //       returnLoadFile ({success: reader.result, file: file});
+    //     });
+    //     reader.addEventListener('abort', () => {
+    //       returnLoadFile ({fail: 'abort'});
+    //     });
+    //     reader.addEventListener('error', () => {
+    //       returnLoadFile ({fail: 'error'});
+    //     });
 
-        if (options.image || options.readMethod == 'readAsDataURL')
-          reader.readAsDataURL(this.files[0]);
-        else
-          reader.readAsText(this.files[0]);
+    //     if (options.image || options.readMethod == 'readAsDataURL')
+    //       reader.readAsDataURL(this.files[0]);
+    //     else
+    //       reader.readAsText(this.files[0]);
 
-      } // getFile
+    //   } // getFile
 
-      function returnLoadFile(returnedValue) {
-        callBack(returnedValue);
-      }
+    //   function returnLoadFile(returnedValue) {
+    //     callBack(returnedValue);
+    //   }
 
-      // uploadFile = function (ocallBack, ooptions) {
-      //   /* loads a file asynchronously
-      //   at the end of the process, calls the function 'callBack' with an object :
+    // // uploadFile = function(ocallBack, ooptions) {
+    // // /* loads a file asynchronously
+    // // at the end of the process, calls the function 'callBack' with an object :
 
-      //   {fail: string} in case of failure, where string gives the reason of the failure
-      //   or
-      //   {success : string, file: file} where string is the content of the image file
-      //      file represents the loaded file, and may be tested for file.type, file.name...
+    // // {fail: string} in case of failure, where string gives the reason of the failure
+    // // or
+    // // {success : string, file: file} where string is the content of the image file
+    // //    file represents the loaded file, and may be tested for file.type, file.name...
 
-      //   CAUTION ! If the user clicks 'cancel' when loading a file, nothing happens.
+    // // CAUTION ! If the user clicks 'cancel' when loading a file, nothing happens.
 
-      //   options is an object, with 0, one or more of the following properties :
-      //   accept : string to pass as "accept" attribute to the load file button, such as '.txt' or 'image/*'
-      //               default : no value (will accept  * . * )
-      //   readMethod : 'readAsText' or 'readAsDataURL' - default is readAsText
-      //   image: if provided, must be an Image element. If possible, the data is loaded
-      //   with readAsDataURL, no matter the value of readMethod, and option.image.src is set to the data.
-      //   The function then returns normally as defined above.
-      //   Normally, a 'load' event should be triggered on the image.
-      //   */
+    // // options is an object, with 0, one or more of the following properties :
+    // // accept : string to pass as "accept" attribute to the load file button, such as '.txt' or 'image/*'
+    // //             default : no value (will accept  * . * )
+    // // readMethod : 'readAsText' or 'readAsDataURL' - default is readAsText
+    // // image: if provided, must be an Image element. If possible, the data is loaded
+    // // with readAsDataURL, no matter the value of readMethod, and option.image.src is set to the data.
+    // // The function then returns normally as defined above.
+    // // Normally, a 'load' event should be triggered on the image.
+    // // */
 
-      //   options = ooptions;
-      //   callBack = ocallBack;
-      //   if (options.accept) elFile.setAttribute("accept", options.accept);
-      //   else elFile.removeAttribute("accept");
-      //   elFile.click();
+    // //   options = ooptions;
+    // //   callBack = ocallBack;
+    // //   if (options.accept) elFile.setAttribute("accept", options.accept);
+    // //   else elFile.removeAttribute("accept");
+    // //   elFile.click();
 
-      // } // uploadFile
-    } //  // scope for uploadFile
+    // // } // uploadFile
+    // } //  // scope for uploadFile
 
     // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -   -
     // side of a piece
@@ -704,17 +706,13 @@ export default function PuzzleComponent({ imgUrl }) {
       //     lineOffset: 30,
       //     lineStep: 30,
       //     lines: [
-      //       { text: "load image", func: this.loadImage() },
-      //       { text: "12 piece", func: this.returnFunct(12) },
-      //       { text: "25 piece", func: this.returnFunct(25) },
-      //       { text: "50 piece", func: this.returnFunct(50) },
-      //       { text: "100 piece", func: this.returnFunct(100) },
-      //       { text: "200 piece", func: this.returnFunct(200) }
+      //       // {text: "load image", func: this.loadImage()},
+      //       { text: "9 piece", func: this.returnFunct(9) }
       //     ]
       //   });
       // }
       if (autoStart) {
-        this.npieces = 9;
+        this.npieces = autoStartPieces;
         this.next();
       }
     } // createPuzzle
@@ -722,10 +720,10 @@ export default function PuzzleComponent({ imgUrl }) {
     // function for menu actions
 
     Puzzle.prototype.returnFunct = function (nbpieces) {
-
+      console.log("executed")
       let puz = this;
       return function () {
-        puz.menu.collapse();
+        // puz.menu.collapse();
         puz.npieces = nbpieces;
         puz.next();
       }
@@ -733,19 +731,17 @@ export default function PuzzleComponent({ imgUrl }) {
 
     // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -   -
 
-    Puzzle.prototype.loadImage = function () {
+    // Puzzle.prototype.loadImage = function () {
 
-      let puz = this;
-      return function () {
-        puz.menu.collapse();
-        uploadFile(() => { },
-          {
-            accept: 'image/*',
-            readMethod: 'readAsDataURL',
-            image: puz.image
-          });
-      }
-    }
+    //   let puz = this;
+    //   return function() {
+    //     puz.menu.collapse();
+    //     uploadFile(() => {},
+    //               {accept: 'image/*',
+    //                readMethod: 'readAsDataURL',
+    //                image: puz.image});
+    //     }
+    // }
 
     // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -   -
 
@@ -1508,21 +1504,28 @@ export default function PuzzleComponent({ imgUrl }) {
 
     //---------------------------------------------------------------------------- -
 
-    // window.addEventListener("load", function(){
+    // window.addEventListener("load", function () {
 
-    let img = imgUrl;
+      // autoStart = isMiniature(); // used for nice miniature in CodePen
 
-    autoStart = isMiniature(); // used for nice miniature in CodePen
+      let x = new Puzzle({
+        img: imgUrl,
+        width: window.innerWidth,
+        height: window.innerHeight,
+        idiv: "forPuzzle",
 
-    let x = new Puzzle({
-      img: img,
-      width: window.innerWidth,
-      height: window.innerHeight,
-      idiv: "forPuzzle"
-    });
-    console.log(x)
+      });
+
+      // console.log(x)
+      // debugger;
+
+      // x.npieces = 9
+      // x.next()
+
+      // x.returnFunct(9)()
+
+      // x.beginGame()
     // });
-    console.log("did something")
 
   })
 
