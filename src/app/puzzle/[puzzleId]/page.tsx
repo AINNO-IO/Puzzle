@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import PuzzleComponent from "./puzzle-component";
 import fs from 'fs';
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Solve puzzle",
@@ -13,7 +14,7 @@ export default async function Puzzle({ params }: { params: { puzzleId: string } 
   console.log(path)
   const title = fs.readFileSync(path+'/title.txt',  { encoding: 'utf8', flag: 'r' })
   const text = fs.readFileSync(path+'/text.txt', { encoding: 'utf8', flag: 'r' })
-  const picture = fs.readFileSync(path+'/picture.png', { encoding: 'utf8', flag: 'r' })
+  const picture = fs.readFileSync(path+'/picture.base64', { encoding: 'utf8', flag: 'r' })
 
   console.log(title)
   console.log(text)
@@ -24,8 +25,13 @@ export default async function Puzzle({ params }: { params: { puzzleId: string } 
     <main className="mt-20">
       <p>{title}</p>
       <p>{text}</p>
-      <p>{picture}</p>
-      <PuzzleComponent imgUrl={'https://assets.codepen.io/2574552/Mona_Lisa.jpg'}/>
+      {/* <Image 
+        src={picture}
+        alt="Puzzle picture"
+        width={600}
+        height={600}
+      /> */}
+      <PuzzleComponent imgUrl={picture}/>
     </main>
   );
 }

@@ -1,23 +1,26 @@
 'use client'
 import Image from "next/image";
 import { useState } from "react";
-import SaveData from "./save-data";
+import SaveData, { DataToSave } from "./save-data";
 import Link from "next/link";
+import { read } from "fs";
 
 export default function FormPage() {
     const [formData, setFormData] = useState({
+        id: '',
         title: '',
         text: '',
-        picture: '',
-        id: ''
+        pictureFile: null as unknown as File
     })
 
-    const pictureElement = formData.picture ? (
+    const pictureUrl = formData.pictureFile ? URL.createObjectURL(formData.pictureFile) : undefined
+
+    const pictureElement = pictureUrl ? (
         <>
             <Image
                 width={600}
                 height={600}
-                src={formData.picture}
+                src={pictureUrl}
                 alt='Puzzle picture'
             />
         </>
@@ -32,12 +35,25 @@ export default function FormPage() {
         <></>
     )
 
+    const handleSubmit = async (event: any) => {
+        event.preventDefault()
 
-    const handleSubmit = (event: any) => {
-        event.preventDefault();
+        if (!formData.title || !formData.text || !formData.pictureFile) {
+            return
+        }
 
-        SaveData(formData).then((result) => {
-            setFormData({ ...formData, id: result })
+        const dataToSave = {
+            id: formData.id,
+            title: formData.title,
+            text: formData.text,
+            picture: {
+                name: formData.pictureFile.name,
+                body: await file2Base64(formData.pictureFile)
+            }
+        } as DataToSave
+
+        SaveData(dataToSave).then((uuid) => {
+            setFormData({ ...formData, id: uuid })
         })
 
     };
@@ -69,9 +85,8 @@ export default function FormPage() {
                                 if (!event || !event.target || !event.target.files || !event.target.files[0]) {
                                     return
                                 }
-                                const result = URL.createObjectURL(event.target.files[0])
-                                setFormData({ ...formData, picture: result })
-                                console.log(result)
+                                const file = event.target.files[0]
+                                setFormData({ ...formData, pictureFile: file })
                             }}
                             required
                         />
@@ -113,4 +128,13 @@ export default function FormPage() {
         </div>
     </div>
     )
+}
+
+const file2Base64 = (file: File): Promise<string> => {
+    return new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result?.toString() || '');
+        reader.onerror = error => reject(error);
+    })
 }
