@@ -9,7 +9,7 @@ export default function FormPage() {
         title: '',
         text: '',
         picture: '',
-        id: 'asdasd'
+        id: ''
     })
 
     const pictureElement = formData.picture ? (
@@ -33,13 +33,12 @@ export default function FormPage() {
     )
 
 
-    const handleSubmit = (event: any) => {
-        event.preventDefault();
+    const handleSubmit = async (event: any) => {
+        event.preventDefault()
 
-        SaveData(formData).then((result) => {
-            setFormData({ ...formData, id: result })
-        })
+        const result = await SaveData(formData)
 
+        setFormData({ ...formData, id: result })
     };
 
     return (<div className="hero m-auto">
@@ -104,7 +103,7 @@ export default function FormPage() {
                             required
                         ></textarea>
                     </div>
-                    <p className="text-center">Generated URL: {generatedLink}</p>
+                    {formData.id ? (<p className="text-center">Generated URL: {generatedLink}</p>) : (<></>)}
                     <div className="form-control mt-6">
                         <button className="btn btn-primary">Generate puzzle link</button>
                     </div>

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Navbar() {
   return (
@@ -15,6 +16,7 @@ export default function Navbar() {
       </div>
 
       <div className="w-auto block flex-grow text-right">
+       <Link href="/admin/upload"> <button className="btn btn-secondary mx-5 px-5">New puzzle</button></Link>
         <button className="btn btn-primary px-5">Login</button>
       </div>
     </nav>

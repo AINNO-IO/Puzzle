@@ -1,9 +1,8 @@
+'use client'
 
-
-
-export default function PuzzleComponent() {
-
-  let autoStart = true
+export default function PuzzleComponent({imgUrl}) {
+  'use client'
+  let autoStart
   const mrandom = Math.random,
     mfloor = Math.floor,
     mhypot = Math.hypot;
@@ -189,34 +188,34 @@ export default function PuzzleComponent() {
       callBack(returnedValue);
     }
 
-    uploadFile = function (ocallBack, ooptions) {
-      /* loads a file asynchronously
-      at the end of the process, calls the function 'callBack' with an object :
+    // uploadFile = function (ocallBack, ooptions) {
+    //   /* loads a file asynchronously
+    //   at the end of the process, calls the function 'callBack' with an object :
       
-      {fail: string} in case of failure, where string gives the reason of the failure
-      or
-      {success : string, file: file} where string is the content of the image file
-         file represents the loaded file, and may be tested for file.type, file.name...
+    //   {fail: string} in case of failure, where string gives the reason of the failure
+    //   or
+    //   {success : string, file: file} where string is the content of the image file
+    //      file represents the loaded file, and may be tested for file.type, file.name...
       
-      CAUTION ! If the user clicks 'cancel' when loading a file, nothing happens.
+    //   CAUTION ! If the user clicks 'cancel' when loading a file, nothing happens.
       
-      options is an object, with 0, one or more of the following properties :
-      accept : string to pass as "accept" attribute to the load file button, such as '.txt' or 'image/*'
-                  default : no value (will accept  * . * )
-      readMethod : 'readAsText' or 'readAsDataURL' - default is readAsText
-      image: if provided, must be an Image element. If possible, the data is loaded
-      with readAsDataURL, no matter the value of readMethod, and option.image.src is set to the data.
-      The function then returns normally as defined above.
-      Normally, a 'load' event should be triggered on the image.
-      */
+    //   options is an object, with 0, one or more of the following properties :
+    //   accept : string to pass as "accept" attribute to the load file button, such as '.txt' or 'image/*'
+    //               default : no value (will accept  * . * )
+    //   readMethod : 'readAsText' or 'readAsDataURL' - default is readAsText
+    //   image: if provided, must be an Image element. If possible, the data is loaded
+    //   with readAsDataURL, no matter the value of readMethod, and option.image.src is set to the data.
+    //   The function then returns normally as defined above.
+    //   Normally, a 'load' event should be triggered on the image.
+    //   */
 
-      options = ooptions;
-      callBack = ocallBack;
-      if (options.accept) elFile.setAttribute("accept", options.accept);
-      else elFile.removeAttribute("accept");
-      elFile.click();
+    //   options = ooptions;
+    //   callBack = ocallBack;
+    //   if (options.accept) elFile.setAttribute("accept", options.accept);
+    //   else elFile.removeAttribute("accept");
+    //   elFile.click();
 
-    } // uploadFile
+    // } // uploadFile
   } //  // scope for uploadFile
 
   // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -   -
@@ -1508,7 +1507,7 @@ export default function PuzzleComponent() {
 
   // window.addEventListener("load", function(){
 
-  let img = 'https://assets.codepen.io/2574552/Mona_Lisa.jpg';
+  let img = imgUrl;
 
   autoStart = isMiniature(); // used for nice miniature in CodePen
 
