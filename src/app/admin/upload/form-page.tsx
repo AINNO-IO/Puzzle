@@ -30,7 +30,7 @@ export default function FormPage() {
 
 
     const generatedLink = formData.id ? (
-        <Link href={`/puzzle/${formData.id}`} ><span className="hover:text-red-400">{`${window.location.origin}/puzzle/${formData.id}`}</span></Link>
+        <Link href={`/puzzle/${formData.id}`} ><span className="hover:text-red-400">{`${process.env.NEXT_PUBLIC_SITE_URL}/puzzle/${formData.id}`}</span></Link>
     ) : (
         <></>
     )

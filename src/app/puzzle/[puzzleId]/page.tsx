@@ -22,15 +22,8 @@ export default async function Puzzle({ params }: { params: { puzzleId: string } 
   
  console.log(params.puzzleId)
   return (
-    <main className="mt-20 min-h-screen">
-      {/* <Image 
-        src={picture}
-        alt="Puzzle picture"
-        width={600}
-        height={600}
-      /> */}
+    <main className="">
       <PuzzleComponent imgUrl={picture}/>
-      {/* <NewPuzzle imageSrc="picture"/> */}
     </main>
   );
 }
