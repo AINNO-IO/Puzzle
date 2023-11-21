@@ -11,9 +11,5 @@ export default async function Home() {
   } else {
     redirect(`/admin/upload`)
   }
-  return (
-    <main className="">
-
-    </main>
-  )
+  return (<></>)
 }
