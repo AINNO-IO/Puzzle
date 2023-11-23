@@ -6,6 +6,9 @@ services:
     environment:
       - FILE_STORAGE_PATH=/data
       - NEXT_PUBLIC_SITE_URL=http://194.5.157.23:3002
+      - AUTH_SECRET=b5ace7fdf03d123912b8ade30e3c025013774792bc617582a37b77b672a5b1f1
+      - ADMIN_EMAIL=admin@citadele.com
+      - ADMIN_PASSWORD=admin
     ports:
       - '3002:3000'      
     volumes: 
