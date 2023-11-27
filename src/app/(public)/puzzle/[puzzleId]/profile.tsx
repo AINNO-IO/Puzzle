@@ -9,16 +9,16 @@ export default function Profile({ imgUrl, title, text }: { imgUrl: string, title
             <div className="hero-content flex-col lg:flex-row-reverse">
                 <div className="text-center lg:text-left">
                     <h1 className="text-5xl font-bold">{title}</h1>
-                    <p className="py-6">{text.split('\n').map((element) => (<>{element} <br /></>))}</p>
+                    <p className="py-6">{text.split('\n').map((element, index) => (<span key={index}>{element} <br /></span>))}</p>
                 </div>
-                <div className="mr-10 card shrink-0 w-full max-w-sm shadow-2xl bg-base-100 m-auto text-center">
+                <div className="mr-10 card shrink-0 w-full h-full max-w-sm shadow-2xl bg-base-100 m-auto text-center">
                     <Image
                         className=" rounded-2xl"
                         width={200}
                         height={160}
-                        sizes="(max-width: 768px) 100vw,
-                        (max-width: 1200px) 50vw,
-                        33vw"
+                        // sizes="(max-width: 768px) 100vw,
+                        // (max-width: 1200px) 50vw,
+                        // 33vw"
                         style={{ height: '100%', width: '100%' }}
                         src={imgUrl}
                         alt='Puzzle picture'

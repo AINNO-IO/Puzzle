@@ -1,6 +1,5 @@
 'use client'
 import Profile from './profile';
-import './puzzle-component.css'
 
 import { useEffect, useState } from "react";
 
@@ -11,8 +10,15 @@ export default function PuzzleComponent({ imgUrl, title, text }) {
   let puzzle
 
   useEffect(() => {
+    if (won) {
+      if (puzzle) {
+        puzzle.destroy()
+      }
+      return
+    }
+
     let autoStart = true
-    const autoStartPieces = 9
+    const autoStartPieces = 4
     const mrandom = Math.random,
       mfloor = Math.floor,
       mhypot = Math.hypot;
@@ -1520,8 +1526,8 @@ export default function PuzzleComponent({ imgUrl, title, text }) {
     if (!puzzle) {
       puzzle = new Puzzle({
         img: imgUrl,
-        width: window.innerWidth,
-        height: window.innerHeight,
+        width: window.innerWidth - 100,
+        height: window.innerHeight - 100,
         idiv: "forPuzzle",
       });
     }
