@@ -6,14 +6,14 @@ import PuzzleData from "@/puzzle/puzzle-data";
 import savePuzzle from "@/puzzle/puzzle-repository";
 
 export default function FormPage() {
+    const [pictureUrl, setPictureUrl] = useState('')
+
     const [formData, setFormData] = useState({
         id: '',
         title: '',
         text: '',
         pictureFile: null as unknown as File
     })
-
-    const pictureUrl = formData.pictureFile ? URL.createObjectURL(formData.pictureFile) : undefined
 
     const pictureElement = pictureUrl ? (
         <>
@@ -77,9 +77,11 @@ export default function FormPage() {
                             onChange={(event) => {
                                 if (!event || !event.target || !event.target.files || !event.target.files[0]) {
                                     setFormData({ ...formData, pictureFile: null as unknown as File })
+                                    setPictureUrl('')
                                 } else {
                                     const file = event.target.files[0]
                                     setFormData({ ...formData, pictureFile: file })
+                                    setPictureUrl(URL.createObjectURL(file))
                                 }
                             }}
                             required
