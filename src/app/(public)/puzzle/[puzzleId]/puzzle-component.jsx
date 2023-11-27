@@ -18,7 +18,7 @@ export default function PuzzleComponent({ imgUrl, title, text }) {
     }
 
     let autoStart = true
-    const autoStartPieces = 4
+    const autoStartPieces = 9
     const mrandom = Math.random,
       mfloor = Math.floor,
       mhypot = Math.hypot;
