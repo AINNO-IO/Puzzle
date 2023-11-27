@@ -1,28 +1,28 @@
 'use client'
 
 import Image from "next/image"
+import Link from "next/link";
 
 export default function Profile({ imgUrl, title, text }: { imgUrl: string, title: string, text: string }) {
 
     return (
         <div className="hero min-h-screen">
-            <div className="hero-content flex-col lg:flex-row-reverse">
-                <div className="text-center lg:text-left">
-                    <h1 className="text-5xl font-bold">{title}</h1>
-                    <p className="py-6">{text.split('\n').map((element, index) => (<span key={index}>{element} <br /></span>))}</p>
-                </div>
-                <div className="mr-10 card shrink-0 w-full h-full max-w-sm shadow-2xl bg-base-100 m-auto text-center">
+            <div className="card lg:card-side bg-base-100 shadow-xl m-10">
+                <figure>
                     <Image
-                        className=" rounded-2xl"
-                        width={200}
-                        height={160}
-                        // sizes="(max-width: 768px) 100vw,
-                        // (max-width: 1200px) 50vw,
-                        // 33vw"
-                        style={{ height: '100%', width: '100%' }}
+                        width={100}
+                        height={100}
+                        style={{ maxHeight: '600px', width: '600px' }}
                         src={imgUrl}
                         alt='Puzzle picture'
                     />
+                </figure>
+                <div className="card-body lg:w-1/2 break-words">
+                    <h2 className="card-title">{title}</h2>
+                    <p>{text.split('\n').map((element, index) => (<span key={index}>{element} <br /></span>))}</p>
+                    <div className="card-actions justify-end mt-5">
+                        <Link href='/' passHref><button className="btn btn-primary">New puzzle!</button></Link>
+                    </div>
                 </div>
             </div>
         </div>

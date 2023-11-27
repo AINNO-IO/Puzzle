@@ -1526,8 +1526,8 @@ export default function PuzzleComponent({ imgUrl, title, text }) {
     if (!puzzle) {
       puzzle = new Puzzle({
         img: imgUrl,
-        width: window.innerWidth - 100,
-        height: window.innerHeight - 100,
+        width: window.innerWidth - 10,
+        height: window.innerHeight - 85,
         idiv: "forPuzzle",
       });
     }

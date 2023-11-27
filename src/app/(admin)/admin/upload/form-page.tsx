@@ -57,18 +57,15 @@ export default function FormPage() {
 
     return (<div className="hero m-auto">
         <div className="hero-content flex-col lg:flex-row-reverse">
-            <div className="text-center lg:text-left">
-                <div className="mockup-browser border border-base-300">
-                    <div className="mockup-browser-toolbar">
-                        <div className="input border border-base-300">
-                            {generatedLink}
-                        </div>
-                    </div>
-                    <div className="flex justify-center px-4 py-4 border-t border-base-300 w-full h-full">
+
+            {pictureUrl ? (
+                <div className="text-center lg:text-left w-full">
+                    <div className="flex justify-center px-4 text-xl">Preview</div>
+                    <div className="flex justify-center px-4 pt-4">
                         {pictureElement}
                     </div>
                 </div>
-            </div>
+            ) : null}
 
             <div className="card shrink-0 w-full max-w-xl shadow-2xl">
                 <form className="card-body" onSubmit={handleSubmit}>
@@ -78,12 +75,12 @@ export default function FormPage() {
                             type="file"
                             className="file-input file-input-bordered file-input-primary w-full max-w-xs"
                             onChange={(event) => {
-                                console.log('doing on change')
                                 if (!event || !event.target || !event.target.files || !event.target.files[0]) {
-                                    return
+                                    setFormData({ ...formData, pictureFile: null as unknown as File })
+                                } else {
+                                    const file = event.target.files[0]
+                                    setFormData({ ...formData, pictureFile: file })
                                 }
-                                const file = event.target.files[0]
-                                setFormData({ ...formData, pictureFile: file })
                             }}
                             required
                         />
