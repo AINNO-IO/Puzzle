@@ -68,7 +68,7 @@ export default function FormPage() {
                         <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={() => setShowPreview(false)}>✕</button>
                     </form>
                     <h3 className="font-bold text-lg">Preview</h3>
-                    {showPreview ? (<Profile title={formData.title} text={formData.text} imgUrl={pictureUrl} noLink={true} noFullHeight={true} />) : (<></>)}
+                    {showPreview ? (<Profile title={formData.title} text={formData.text} imgUrl={pictureUrl} noFullHeight={true} />) : (<></>)}
                 </div>
             </dialog>
             <div className="hero m-auto">
