@@ -1,5 +1,4 @@
 'use client'
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import PuzzleData from "@/puzzle/puzzle-data";
@@ -45,9 +44,9 @@ export default function FormPage() {
         if (!formData.title || !formData.text || !formData.pictureFile) {
             return
         }
-
+        
         const dataToSave = {
-            id: formData.id,
+            id: '',
             title: formData.title,
             text: formData.text,
             picture: await file2Base64(formData.pictureFile)
@@ -83,7 +82,7 @@ export default function FormPage() {
                         </div>
                     ) : null} */}
 
-                    <div className="card shrink-0 w-full max-w-xl shadow-2xl">
+                    <div className="card shrink-0 w-full w-3xl shadow-2xl">
                         <form className="card-body" onSubmit={handleSubmit}>
 
                             <div className="form-control">
@@ -143,9 +142,15 @@ export default function FormPage() {
                             }
 
 
-                            {formData.id ? (<p className="text-center">Generated URL: {generatedLink}</p>) : (<></>)}
+                            {formData.id ? (
+                                <div className="form-control mt-6">
+                                    <Link href={`/puzzle/${formData.id}`} target="_blank"><button className="btn btn-primary w-full">Open puzzle</button></Link>
+                                </div>
+                            ) : (<></>)}
+
+
                             <div className="form-control mt-6">
-                                <button className="btn btn-primary">Generate puzzle link</button>
+                                <button className="btn btn-primary">Generate New Puzzle</button>
                             </div>
                         </form>
                     </div>

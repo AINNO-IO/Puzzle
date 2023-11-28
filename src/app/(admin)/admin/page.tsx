@@ -28,10 +28,9 @@ export default async function AdminView() {
 
       <div className="overflow-x-auto">
         <table className="table">
-          {/* head */}
           <thead>
             <tr>
-              <th>Id</th>
+              <th>Puzzle Id</th>
               <th>Picture</th>
               <th>Title</th>
               <th>Text</th>
@@ -42,7 +41,9 @@ export default async function AdminView() {
             {puzzleData.map((item) => (
               <tr key={item.id}>
                 <td>
-                  <Link href={`/puzzle/${item.id}`} target='_blank' className='hover:underline'>{item.id}</Link>
+                  <div className="tooltip" data-tip="Click to preview the Puzzle">
+                    <Link href={`/puzzle/${item.id}`} target='_blank' className='hover:underline'>{item.id}</Link>
+                  </div>
                 </td>
                 <td>
                   <div className="flex items-center gap-3">
@@ -56,10 +57,10 @@ export default async function AdminView() {
                 <td>
                   {item.title}
                 </td>
-                <td>{item.text.split('\n').map((element) => (<>{element} <br /></>))}</td>
-                <th>
+                <td>{item.text.split('\n').map((element, i) => (<span key={i}>{element} <br /></span>))}</td>
+                <td>
                   <Actions puzzleId={item.id} />
-                </th>
+                </td>
               </tr>
             ))}
           </tbody>
