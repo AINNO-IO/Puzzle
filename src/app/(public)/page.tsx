@@ -1,9 +1,12 @@
-'use server'
 import PuzzleData from '@/puzzle/puzzle-data'
 import { getPuzzleData } from '@/puzzle/puzzle-repository'
 import { redirect } from 'next/navigation'
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 export default async function Home() {
+  'use server'
   console.log(`Executing the Client Public Home Page`)
   const puzzles: PuzzleData[] = await getPuzzleData()
   if (puzzles && puzzles.length) {
@@ -14,5 +17,4 @@ export default async function Home() {
     console.log(`No puzzles found. Redirecting to Admin`)
     redirect(`/admin/upload`)
   }
-  return (<></>)
 }
