@@ -40,6 +40,8 @@ export async function getPuzzleData(): Promise<PuzzleData[]> {
     result.push({ id: fileName, title, text, picture, created: stats.birthtime.getMilliseconds() })
   }
 
+  console.log(`Found ${result.length} puzzles in '${storageUrl}' directory`)
+
   return result.sort((a, b) => a.created - b.created)
 }
 

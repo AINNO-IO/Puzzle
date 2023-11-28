@@ -7,8 +7,10 @@ export default async function Home() {
   const puzzles: PuzzleData[] = await getPuzzleData()
   if (puzzles && puzzles.length) {
     const i = Math.floor(Math.random() * puzzles.length)
+    console.log(`Found ${puzzles.length} puzzles. Redirecting to /puzzle/${puzzles[i].id}`)
     redirect(`/puzzle/${puzzles[i].id}`)
   } else {
+    console.log(`No puzzles found. Redirecting to Admin`)
     redirect(`/admin/upload`)
   }
   return (<></>)
