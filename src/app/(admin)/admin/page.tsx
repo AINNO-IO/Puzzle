@@ -5,6 +5,7 @@ import PuzzleData from '@/puzzle/puzzle-data';
 import { getPuzzleData } from '@/puzzle/puzzle-repository';
 import Actions from './actions'
 import { auth } from "auth"
+import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'All puzzles',
@@ -41,7 +42,7 @@ export default async function AdminView() {
             {puzzleData.map((item) => (
               <tr key={item.id}>
                 <td>
-                  {item.id}
+                  <Link href={`/puzzle/${item.id}`} target='_blank' className='hover:underline'>{item.id}</Link>
                 </td>
                 <td>
                   <div className="flex items-center gap-3">
