@@ -32,12 +32,6 @@ export default function FormPage() {
         handleClose();
     }
 
-    const generatedLink = formData.id ? (
-        <Link href={`/puzzle/${formData.id}`} ><span className="hover:text-red-400">{`${process.env.NEXT_PUBLIC_SITE_URL}/puzzle/${formData.id}`}</span></Link>
-    ) : (
-        <></>
-    )
-
     const handleSubmit = async (event: any) => {
         event.preventDefault()
 
